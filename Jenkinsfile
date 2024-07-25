@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    echo "Building pull request branch: ${env.CHANGE_BRANCH}"
+                    echo "Building pull request branch Development"
                     sh 'mvn clean install'   
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    echo "Running tests on pull request branch: ${env.CHANGE_BRANCH}"
+                    echo "Running tests on pull request branch Development"
                     
                     sh 'mvn test'
                     
@@ -43,4 +43,4 @@ pipeline {
             echo 'Pipeline failed.'
         }
     }
-}
+}   
