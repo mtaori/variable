@@ -1,29 +1,46 @@
 pipeline {
     agent any
-      environment {
-        MAVEN_HOME = tool name: 'maven', type: 'MAVEN3.9.8'
+    tools{
+        maven 'MAVEN3.9.8'
     }
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building the Java application...'
-                sh 'mvn clean package'
+                git url: 'https://github.com/mtaori/variable.git', branch: env.CHANGE_BRANCH
             }
         }
+
+        stage('Build') {
+            steps {
+                script {
+                    echo "Building pull request branch: ${env.CHANGE_BRANCH}"
+                    sh 'mvn clean install'   
+                }
+            }
+        }
+
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                // Add your test commands here if you have tests
+                script {
+                    echo "Running tests on pull request branch: ${env.CHANGE_BRANCH}"
+                    
+                    sh 'mvn test'
+                    
+                }
             }
         }
     }
+
     post {
+        always {
+            echo 'Pipeline finished.'
+        }
         success {
-            echo 'Build and test succeeded!'
+            echo 'Pipeline succeeded.'
         }
         failure {
-            echo 'Build or test failed!'
+            echo 'Pipeline failed.'
         }
     }
 }
