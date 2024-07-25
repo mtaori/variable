@@ -15,8 +15,7 @@ pipeline {
             steps {
                 script {
                     echo "Building pull request branch: ${env.CHANGE_BRANCH}"
-                    sh 'mvn clean install'
-                    
+                    sh 'mvn clean install'   
                 }
             }
         }
