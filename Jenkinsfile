@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/mtaori/variable.git', branch: env.CHANGE_BRANCH
+                git url: 'https://github.com/mtaori/variable.git', branch: Development
             }
         }
 
