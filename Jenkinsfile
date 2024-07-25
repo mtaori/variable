@@ -15,8 +15,7 @@ pipeline {
             steps {
                 script {
                     echo "Building pull request branch: ${env.CHANGE_BRANCH}"
-                    
-                        sh 'mvn clean install'
+                    sh 'mvn clean install'
                     
                 }
             }
@@ -27,7 +26,7 @@ pipeline {
                 script {
                     echo "Running tests on pull request branch: ${env.CHANGE_BRANCH}"
                     
-                        sh 'mvn test'
+                    sh 'mvn test'
                     
                 }
             }
