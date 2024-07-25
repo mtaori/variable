@@ -7,14 +7,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/mtaori/variable.git', branch: env.CHANGE_BRANCH
+                git url: 'https://github.com/mtaori/variable.git', branch: env.GIT_BRANCH
             }
         }
 
         stage('Build') {
             steps {
                 script {
-                    echo "Building pull request branch: ${env.CHANGE_BRANCH}"
+                    echo "Building pull request branch: ${env.GIT_BRANCH}"
                     sh 'mvn clean install'   
                 }
             }
@@ -23,8 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    echo "Running tests on pull request branch: ${env.CHANGE_BRANCH}"
-                    
+                    echo "Running tests on pull request branch: ${env.GIT_BRANCH}"
                     sh 'mvn test'
                     
                 }
@@ -43,4 +42,4 @@ pipeline {
             echo 'Pipeline failed.'
         }
     }
-}
+}   
